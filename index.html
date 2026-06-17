@@ -233,34 +233,71 @@ function render(){
 }
 render();
 
-function doSubmit(){
+const SUPA_URL="https://gbvhvqklyzzzbfyeejzk.supabase.co";
+const SUPA_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdidmh2cWtseXp6emJmeWVlanprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwNTQ1MjksImV4cCI6MjA5NjYzMDUyOX0.yrfvZBNPNhhoMfH2gDTTV3xgyRuIH1Ie1aVaHKxjBM4";
+
+async function saveToSupabase(rows){
+  const res=await fetch(`${SUPA_URL}/rest/v1/feedback_360`,{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      "apikey":SUPA_KEY,
+      "Authorization":`Bearer ${SUPA_KEY}`,
+      "Prefer":"return=minimal"
+    },
+    body:JSON.stringify(rows)
+  });
+  if(!res.ok){const err=await res.text();throw new Error(err);}
+}
+
+async function doSubmit(){
   const nm=document.getElementById("rname").value.trim();
   if(!nm){alert("Por favor ingresa tu nombre.");return;}
   const active=DS.filter(d=>st.sel[d.id]);
   if(!active.length){alert("Selecciona al menos un integrante del equipo.");return;}
-  const q=document.getElementById("qsel").value,y=document.getElementById("ysel").value,rol=document.getElementById("rrole").value;
-  let out=`FEEDBACK 360 — Q${q} ${y}\n`;
-  out+=`De: ${nm}${rol?" ("+rol+")":""}\n\n`;
+
+  const btn=document.querySelector(".btn");
+  btn.textContent="Enviando...";btn.disabled=true;
+
+  const q=document.getElementById("qsel").value;
+  const y=document.getElementById("ysel").value;
+  const rol=document.getElementById("rrole").value;
+
+  const rows=[];
   active.forEach(d=>{
-    out+=`=== ${d.name} ===\n`;
-    if(st.sat[d.id])out+=`Satisfacción general: ${st.sat[d.id]}/5\n`;
-    if(st.stars[d.id]){d.ratings.forEach((r,i)=>{const v=st.stars[d.id][i];if(v)out+=`${r}: ${v}/5\n`;});}
-    out+="\n";
-    d.qs.forEach((q,i)=>{const v=document.getElementById(`qa-${d.id}-${i}`)?.value.trim();if(v)out+=`${q.label}\n${v}\n\n`;});
-    const cel=document.getElementById(`cel-${d.id}`)?.value.trim();
-    const ret=document.getElementById(`ret-${d.id}`)?.value.trim();
-    const opp=document.getElementById(`opp-${d.id}`)?.value.trim();
-    if(cel)out+=`CELEBRO: ${cel}\n`;
-    if(ret)out+=`RETO: ${ret}\n`;
-    if(opp)out+=`OPORTUNIDAD: ${opp}\n`;
-    out+="\n";
+    const preguntasTexto=d.qs.map((q,i)=>{
+      const v=document.getElementById(`qa-${d.id}-${i}`)?.value.trim();
+      return v?`${q.label}\n${v}`:"";
+    }).filter(Boolean).join("\n\n");
+
+    rows.push({
+      trimestre:`Q${q}`,
+      anio:y,
+      respondente:nm,
+      rol_respondente:rol||null,
+      designer_id:d.id,
+      designer_nombre:d.name,
+      satisfaccion:st.sat[d.id]||null,
+      rating_1:st.stars[d.id]?.[0]||null,
+      rating_2:st.stars[d.id]?.[1]||null,
+      rating_3:st.stars[d.id]?.[2]||null,
+      preguntas:preguntasTexto||null,
+      celebro:document.getElementById(`cel-${d.id}`)?.value.trim()||null,
+      reto:document.getElementById(`ret-${d.id}`)?.value.trim()||null,
+      oportunidad:document.getElementById(`opp-${d.id}`)?.value.trim()||null
+    });
   });
-  const ta=document.createElement("textarea");ta.value=out;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();
-  try{document.execCommand("copy");alert("Feedback copiado al portapapeles. Pégalo en tu canal de Telegram o donde lo necesites.");}catch(e){}
-  document.body.removeChild(ta);
-  document.getElementById("succ").style.display="block";
-  document.querySelector(".submit-row").style.opacity=".4";
-  document.querySelector(".submit-row").style.pointerEvents="none";
+
+  try{
+    await saveToSupabase(rows);
+    document.getElementById("succ").style.display="block";
+    document.querySelector(".submit-row").style.opacity=".4";
+    document.querySelector(".submit-row").style.pointerEvents="none";
+  }catch(e){
+    console.error(e);
+    alert("Hubo un error al enviar. Por favor intenta de nuevo o contacta a Jhon.");
+    btn.textContent="Enviar feedback";btn.disabled=false;
+  }
 }
 </script>
 </body>
