@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Feedback 360° · Equipo de Diseño Satrack</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#1a1a18;min-height:100vh;padding:2rem 1rem}
+.wrap{max-width:660px;margin:0 auto;background:#fff;border-radius:12px;border:0.5px solid #ddddd5;padding:2rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.tag{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.06em;color:#185FA5;background:#E6F1FB;padding:3px 10px;border-radius:6px;margin-bottom:.75rem;text-transform:uppercase}
+.hdr{border-bottom:0.5px solid #e8e8e4;padding-bottom:1.5rem;margin-bottom:2rem}
+.hdr h1{font-size:20px;font-weight:500;margin-bottom:.35rem}
+.hdr p{font-size:13px;color:#666;line-height:1.6}
+.sec-label{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#999;margin-bottom:1rem}
+.field{margin-bottom:1.25rem}
+.field label{display:block;font-size:13px;font-weight:500;margin-bottom:.5rem}
+.opt{font-weight:400;color:#999;font-size:12px;margin-left:4px}
+input[type=text],select,textarea{width:100%;font-size:13px;padding:9px 12px;border:0.5px solid #ccc;border-radius:8px;background:#fff;color:#1a1a18;font-family:inherit}
+input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:#888}
+textarea{resize:vertical;min-height:72px;line-height:1.5}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.25rem}
+.divider{height:0.5px;background:#e8e8e4;margin:1.75rem 0}
+.inner-divider{height:0.5px;background:#e8e8e4;margin:.9rem 0 1rem}
+.dtog-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:.5rem}
+.dtog{display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;padding:6px 12px;border:0.5px solid #ccc;border-radius:8px;user-select:none;transition:all .12s}
+.dtog.checked{border-color:#378ADD;background:#E6F1FB;color:#185FA5}
+.dtog input{display:none}
+.dcard{background:#fff;border:0.5px solid #ddddd5;border-radius:12px;overflow:hidden;margin-bottom:1.5rem}
+.dcard-head{display:flex;align-items:center;gap:12px;padding:1.1rem 1.25rem;border-bottom:0.5px solid #e8e8e4}
+.avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0}
+.dname{font-size:14px;font-weight:500}
+.drole{font-size:12px;color:#666}
+.dfocus{font-size:11px;color:#999;margin-top:2px}
+.dcard-body{padding:1.25rem}
+.block-title{font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:#999;margin-bottom:.75rem}
+.sat-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:.4rem;margin-bottom:.25rem}
+.sat-lbl{font-size:11px;color:#999}
+.sat-row{display:flex;gap:5px}
+.sat-btn{width:38px;height:38px;border:0.5px solid #ccc;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;background:#fff;color:#666;transition:all .12s}
+.sat-btn.on{background:#E6F1FB;color:#185FA5;border-color:#378ADD}
+.star-group{margin-bottom:.85rem}
+.star-row{display:flex;gap:5px;align-items:center;margin-top:.3rem}
+.star{font-size:20px;cursor:pointer;color:#ccc;user-select:none;transition:color .1s}
+.star.on{color:#EF9F27}
+.star-lbl{font-size:12px;color:#999;margin-left:6px;min-width:72px}
+.q-block{margin-bottom:1rem}
+.ql{font-size:12px;color:#555;display:flex;align-items:center;gap:5px;margin-bottom:.35rem}
+.ql i{font-size:14px}
+.cel-ta{border-left:2px solid #63991a!important;border-radius:0 8px 8px 0!important}
+.ret-ta{border-left:2px solid #BA7517!important;border-radius:0 8px 8px 0!important}
+.opp-ta{border-left:2px solid #185FA5!important;border-radius:0 8px 8px 0!important}
+.cel-lbl{color:#3B6D11}
+.ret-lbl{color:#854F0B}
+.opp-lbl{color:#185FA5}
+.empty-note{font-size:13px;color:#999;padding:.5rem 0}
+.submit-row{display:flex;align-items:center;gap:14px;margin-top:2rem;padding-top:1.5rem;border-top:0.5px solid #e8e8e4}
+.btn{padding:10px 22px;font-size:13px;font-weight:500;border:0.5px solid #ccc;border-radius:8px;background:#fff;color:#1a1a18;cursor:pointer}
+.btn:hover{background:#f5f5f3}
+.btn:active{transform:scale(0.98)}
+.success{display:none;background:#EAF3DE;border:0.5px solid #639922;border-radius:12px;padding:1.25rem;text-align:center;margin-top:1.5rem}
+.success i{font-size:26px;color:#3B6D11;display:block;margin-bottom:.4rem}
+.success p{font-size:13px;color:#3B6D11}
+.notice{font-size:12px;color:#999}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div class="tag">Satrack · Equipo de Diseño</div>
+    <h1>Feedback 360° — Q<span id="qd">?</span> <span id="yd"></span></h1>
+    <p>Tu perspectiva ayuda a fortalecer el equipo. Toma ~7 minutos. Solo el Head of Product Design tiene acceso a estas respuestas.</p>
+  </div>
+
+  <div style="margin-bottom:1.75rem">
+    <div class="sec-label">Tus datos</div>
+    <div class="meta-grid">
+      <div class="field" style="margin:0"><label>Nombre <span class="opt">(requerido)</span></label><input type="text" id="rname" placeholder="Tu nombre completo"/></div>
+      <div class="field" style="margin:0"><label>Rol</label><select id="rrole"><option value="">Selecciona...</option><option>Product Owner</option><option>Product Manager</option><option>Tech Lead</option><option>Otro</option></select></div>
+    </div>
+    <div class="meta-grid">
+      <div class="field" style="margin:0"><label>Trimestre</label><select id="qsel" onchange="upQ()"><option value="1">Q1 · Ene–Mar</option><option value="2">Q2 · Abr–Jun</option><option value="3">Q3 · Jul–Sep</option><option value="4">Q4 · Oct–Dic</option></select></div>
+      <div class="field" style="margin:0"><label>Año</label><select id="ysel" onchange="upQ()"></select></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div style="margin-bottom:1.75rem">
+    <div class="sec-label">¿Con quién trabajaste este trimestre?</div>
+    <div class="dtog-grid" id="tog-grid"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div>
+    <div class="sec-label">Feedback individual</div>
+    <div id="dcards"><p class="empty-note">Selecciona arriba con quién trabajaste para ver las preguntas.</p></div>
+  </div>
+
+  <div class="submit-row">
+    <button class="btn" onclick="doSubmit()">Enviar feedback</button>
+    <p class="notice">Visible solo para Jhon Obi · Head of Product Design</p>
+  </div>
+  <div class="success" id="succ">
+    <i class="ti ti-circle-check"></i>
+    <p style="font-weight:500;margin-bottom:.2rem">¡Feedback recibido!</p>
+    <p>Jhon revisará tus respuestas antes del próximo 1:1.</p>
+  </div>
+</div>
+
+<script>
+const DS=[
+  {id:"dariana",name:"Dariana González",init:"DG",role:"Product Designer",focus:"Design System · Cámaras",ac:"#B5D4F4",tc:"#0C447C",
+   ratings:["Rigurosidad técnica en el Design System","Consistencia en la ejecución","Documentación y handoff"],
+   qs:[{icon:"ti-components",label:"¿Qué tan útil y claro es el Design System para tu trabajo diario?"},{icon:"ti-eye",label:"¿Sus propuestas reflejan bien las necesidades del producto?"},{icon:"ti-messages",label:"¿Cómo es su comunicación cuando hay cambios que afectan a tu equipo?"},{icon:"ti-bulb",label:"¿En qué área crees que podría ampliar más su impacto estratégico?"}]},
+  {id:"karla",name:"Karla Cárdenas",init:"KC",role:"Product Designer",focus:"Satrack Conecta · Torre de Control · Carga",ac:"#C0DD97",tc:"#27500A",
+   ratings:["Organización y seguimiento","Apropiación del producto","Proactividad en research"],
+   qs:[{icon:"ti-clipboard-list",label:"¿Qué tan bien organiza y da seguimiento a los acuerdos y entregas?"},{icon:"ti-search",label:"¿Sus propuestas están respaldadas por entendimiento real del usuario?"},{icon:"ti-users",label:"¿Cómo calificarías su articulación con stakeholders?"},{icon:"ti-trending-up",label:"¿Qué oportunidad de crecimiento ves para ella en los próximos meses?"}]},
+  {id:"lina",name:"Lina Abril",init:"LA",role:"Product Designer",focus:"Combustible · Temperatura · Exploradores",ac:"#FAC775",tc:"#633806",
+   ratings:["Pensamiento de producto","Calidad del research","Visión de negocio"],
+   qs:[{icon:"ti-chart-dots",label:"¿Sus propuestas conectan bien con los objetivos de negocio de tu área?"},{icon:"ti-target",label:"¿Qué tan bien prioriza y focaliza su esfuerzo?"},{icon:"ti-brake",label:"¿Has notado situaciones donde el detalle le haya quitado foco estratégico?"},{icon:"ti-rocket",label:"¿Qué nivel de ownership ves en ella frente a los productos que lidera?"}]},
+  {id:"ana",name:"Ana Sofía Robledo",init:"AR",role:"Pasante de Diseño",focus:"Apoyo en Cámaras · soporte general",ac:"#F4C0D1",tc:"#72243E",
+   ratings:["Disposición al aprendizaje","Calidad de los entregables","Comunicación proactiva"],
+   qs:[{icon:"ti-school",label:"¿Qué tan bien comprende y ejecuta las tareas que le asignas?"},{icon:"ti-hand-stop",label:"¿Pide ayuda cuando lo necesita o tiende a bloquearse sola?"},{icon:"ti-sparkles",label:"¿Has visto iniciativa propia más allá de lo que le piden?"},{icon:"ti-seedling",label:"¿Qué habilidad debería desarrollar con más intención en su pasantía?"}]},
+  {id:"jesus",name:"Jesús Torres",init:"JT",role:"Product Designer",focus:"Arquitectura de plataforma · Investigaciones · Metodología",ac:"#CECBF6",tc:"#3C3489",
+   ratings:["Estructuración de problemas complejos","Claridad comunicativa","Autonomía operativa"],
+   qs:[{icon:"ti-topology-star",label:"¿Sus investigaciones te ayudan a tomar mejores decisiones de producto?"},{icon:"ti-message-2",label:"¿Qué tan claro es cuando comunica hallazgos o recomendaciones?"},{icon:"ti-arrows-left-right",label:"¿Cómo es su alineación con los objetivos y tiempos de tu equipo?"},{icon:"ti-puzzle",label:"¿En qué situación pudo haber actuado con más autonomía o decisión?"}]},
+  {id:"jessica",name:"Jessica Rojas",init:"JR",role:"Product Designer",focus:"Product Design",ac:"#9FE1CB",tc:"#085041",
+   ratings:["Calidad de las propuestas","Colaboración con el equipo","Cumplimiento y entregas"],
+   qs:[{icon:"ti-layout",label:"¿Sus diseños reflejan bien las necesidades del usuario y los objetivos del producto?"},{icon:"ti-git-pull-request",label:"¿Cómo es su proceso de colaboración e iteración con feedback?"},{icon:"ti-clock",label:"¿Cumple con tiempos acordados y comunica a tiempo los impedimentos?"},{icon:"ti-star",label:"¿Qué fortaleza destacarías y qué le recomendarías desarrollar?"}]}
+];
+
+const st={sel:{},stars:{},sat:{}};
+const ysel=document.getElementById("ysel");
+const cy=new Date().getFullYear();
+for(let y=cy;y>=cy-2;y--){const o=document.createElement("option");o.value=y;o.textContent=y;ysel.appendChild(o);}
+function upQ(){document.getElementById("qd").textContent=document.getElementById("qsel").value;document.getElementById("yd").textContent=document.getElementById("ysel").value;}
+upQ();
+
+const tg=document.getElementById("tog-grid");
+DS.forEach(d=>{
+  const l=document.createElement("label");l.className="dtog";
+  const cb=document.createElement("input");cb.type="checkbox";cb.value=d.id;
+  cb.addEventListener("change",()=>{st.sel[d.id]=cb.checked;l.classList.toggle("checked",cb.checked);render();});
+  const av=document.createElement("span");av.style.cssText=`width:22px;height:22px;border-radius:50%;background:${d.ac};color:${d.tc};display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;flex-shrink:0`;av.textContent=d.init;
+  l.appendChild(cb);l.appendChild(av);l.appendChild(document.createTextNode(d.name));
+  tg.appendChild(l);
+});
+
+function setStar(did,rid,val){
+  if(!st.stars[did])st.stars[did]={};
+  st.stars[did][rid]=val;
+  const row=document.getElementById(`sr-${did}-${rid}`);
+  if(!row)return;
+  row.querySelectorAll(".star").forEach(s=>s.classList.toggle("on",+s.dataset.v<=val));
+  const lb=document.getElementById(`sl-${did}-${rid}`);
+  if(lb)lb.textContent=["","Insuficiente","Por mejorar","Aceptable","Bueno","Excelente"][val]||"";
+}
+
+function setSat(did,val){
+  st.sat[did]=val;
+  const row=document.getElementById(`sat-${did}`);
+  if(!row)return;
+  row.querySelectorAll(".sat-btn").forEach(b=>b.classList.toggle("on",+b.dataset.v===val));
+}
+
+function render(){
+  const sec=document.getElementById("dcards");
+  sec.innerHTML="";
+  const active=DS.filter(d=>st.sel[d.id]);
+  if(!active.length){sec.innerHTML='<p class="empty-note">Selecciona arriba con quién trabajaste para ver las preguntas.</p>';return;}
+  active.forEach(d=>{
+    const fn=d.name.split(" ")[0];
+    const card=document.createElement("div");card.className="dcard";
+    const satBtns=[1,2,3,4,5].map(n=>`<button class="sat-btn" data-v="${n}" onclick="setSat('${d.id}',${n})">${n}</button>`).join("");
+    const rHtml=d.ratings.map((r,i)=>`
+      <div class="star-group">
+        <div style="font-size:12px;color:#555">${r}</div>
+        <div class="star-row" id="sr-${d.id}-${i}">
+          ${[1,2,3,4,5].map(n=>`<span class="star" data-v="${n}" onclick="setStar('${d.id}',${i},${n})">★</span>`).join("")}
+          <span class="star-lbl" id="sl-${d.id}-${i}">sin calificar</span>
+        </div>
+      </div>`).join("");
+    const qHtml=d.qs.map((q,i)=>`
+      <div class="q-block">
+        <div class="ql"><i class="ti ${q.icon}"></i>${q.label}</div>
+        <textarea id="qa-${d.id}-${i}" placeholder="Tu respuesta…"></textarea>
+      </div>`).join("");
+    card.innerHTML=`
+      <div class="dcard-head">
+        <div class="avatar" style="background:${d.ac};color:${d.tc}">${d.init}</div>
+        <div>
+          <div class="dname">${d.name}</div>
+          <div class="drole">${d.role}</div>
+          <div class="dfocus"><i class="ti ti-tag" style="font-size:11px;vertical-align:-1px"></i> ${d.focus}</div>
+        </div>
+      </div>
+      <div class="dcard-body">
+        <div class="block-title">Satisfacción con el desempeño</div>
+        <div style="font-size:12px;color:#555;margin-bottom:.5rem">¿Qué tan satisfecho/a estás con el desempeño de ${fn} este trimestre?</div>
+        <div class="sat-wrap">
+          <span class="sat-lbl">Bajo</span>
+          <div class="sat-row" id="sat-${d.id}">${satBtns}</div>
+          <span class="sat-lbl">Alto</span>
+        </div>
+        <div class="inner-divider"></div>
+        <div class="block-title">Valoración por competencia</div>
+        ${rHtml}
+        <div class="inner-divider"></div>
+        <div class="block-title">Preguntas específicas</div>
+        ${qHtml}
+        <div class="inner-divider"></div>
+        <div class="block-title">Cierre</div>
+        <div class="q-block">
+          <div class="ql cel-lbl"><i class="ti ti-confetti"></i>¿Qué celebras de ${fn} este trimestre?</div>
+          <textarea id="cel-${d.id}" class="cel-ta" placeholder="Logros, actitudes o momentos que vale la pena reconocer…"></textarea>
+        </div>
+        <div class="q-block">
+          <div class="ql ret-lbl"><i class="ti ti-flame"></i>¿Qué reto le ves a ${fn}?</div>
+          <textarea id="ret-${d.id}" class="ret-ta" placeholder="Patrones o situaciones que han frenado su desempeño…"></textarea>
+        </div>
+        <div class="q-block" style="margin-bottom:0">
+          <div class="ql opp-lbl"><i class="ti ti-arrow-up-right"></i>¿Qué oportunidades de mejora le ves?</div>
+          <textarea id="opp-${d.id}" class="opp-ta" placeholder="Áreas donde podría crecer o tener más impacto…"></textarea>
+        </div>
+      </div>`;
+    sec.appendChild(card);
+    if(st.stars[d.id]){Object.keys(st.stars[d.id]).forEach(ri=>setStar(d.id,+ri,st.stars[d.id][ri]));}
+    if(st.sat[d.id])setSat(d.id,st.sat[d.id]);
+  });
+}
+render();
+
+function doSubmit(){
+  const nm=document.getElementById("rname").value.trim();
+  if(!nm){alert("Por favor ingresa tu nombre.");return;}
+  const active=DS.filter(d=>st.sel[d.id]);
+  if(!active.length){alert("Selecciona al menos un integrante del equipo.");return;}
+  const q=document.getElementById("qsel").value,y=document.getElementById("ysel").value,rol=document.getElementById("rrole").value;
+  let out=`FEEDBACK 360 — Q${q} ${y}\n`;
+  out+=`De: ${nm}${rol?" ("+rol+")":""}\n\n`;
+  active.forEach(d=>{
+    out+=`=== ${d.name} ===\n`;
+    if(st.sat[d.id])out+=`Satisfacción general: ${st.sat[d.id]}/5\n`;
+    if(st.stars[d.id]){d.ratings.forEach((r,i)=>{const v=st.stars[d.id][i];if(v)out+=`${r}: ${v}/5\n`;});}
+    out+="\n";
+    d.qs.forEach((q,i)=>{const v=document.getElementById(`qa-${d.id}-${i}`)?.value.trim();if(v)out+=`${q.label}\n${v}\n\n`;});
+    const cel=document.getElementById(`cel-${d.id}`)?.value.trim();
+    const ret=document.getElementById(`ret-${d.id}`)?.value.trim();
+    const opp=document.getElementById(`opp-${d.id}`)?.value.trim();
+    if(cel)out+=`CELEBRO: ${cel}\n`;
+    if(ret)out+=`RETO: ${ret}\n`;
+    if(opp)out+=`OPORTUNIDAD: ${opp}\n`;
+    out+="\n";
+  });
+  const ta=document.createElement("textarea");ta.value=out;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");alert("Feedback copiado al portapapeles. Pégalo en tu canal de Telegram o donde lo necesites.");}catch(e){}
+  document.body.removeChild(ta);
+  document.getElementById("succ").style.display="block";
+  document.querySelector(".submit-row").style.opacity=".4";
+  document.querySelector(".submit-row").style.pointerEvents="none";
+}
+</script>
+</body>
+</html>
